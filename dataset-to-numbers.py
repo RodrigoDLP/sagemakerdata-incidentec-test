@@ -42,15 +42,7 @@ def dataset_split(target_col="tipo"):
     print(f"Datasets para predecir '{target_col}' generados correctamente")
 
 
-def upload_to_s3():
-    s3 = boto3.client("s3")
-    bucket = "sagemakerdata-incidentec-test"
-    s3.upload_file("incidents_train_tipo.csv", bucket, "train/urgency/incidents_train_urgencia.csv")
-    s3.upload_file("incidents_validation_tipo.csv", bucket, "validation/urgency/incidents_validation_urgencia.csv")
-    s3.upload_file("incidents_test_tipo.csv", bucket, "test/urgency/incidents_test_urgencia.csv")
-    s3.upload_file("incidents_train_urgencia.csv", bucket, "train/urgency/incidents_train_urgencia.csv")
-    s3.upload_file("incidents_validation_urgencia.csv", bucket, "validation/urgency/incidents_validation_urgencia.csv")
-    s3.upload_file("incidents_test_urgencia.csv", bucket, "test/urgency/incidents_test_urgencia.csv")
+
 
 
 
@@ -58,4 +50,3 @@ def upload_to_s3():
 dataset_to_numbers()
 dataset_split("tipo")
 dataset_split("urgencia")
-#upload_to_s3()

@@ -2,10 +2,11 @@ import sagemaker
 import boto3
 from sagemaker import image_uris
 
-boto_session = boto3.Session(region_name="us-east-1")
-session = sagemaker.Session(boto_session=boto_session)
-
-role = "arn:aws:455247111280:role/LabRole"
+#boto_session = boto3.Session(region_name="us-east-1")
+#session = sagemaker.Session(boto_session=boto_session)
+#role = "arn:aws:iam::455247111280:role/LabRole"
+session = sagemaker.Session()
+role = sagemaker.get_execution_role()
 
 xgb_image = image_uris.retrieve("xgboost", region=session.boto_region_name, version="1.5-1")
 
@@ -13,7 +14,7 @@ xgb = sagemaker.estimator.Estimator(
     image_uri=xgb_image,
     role=role,
     instance_count=1,
-    instance_type="ml.m5.large",
+    instance_type="ml.t3.large",
     output_path="s3://sagemakerdata-incidentec-test/output/urgency",
     sagemaker_session=session,
 )

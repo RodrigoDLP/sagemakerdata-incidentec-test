@@ -3,7 +3,12 @@ import boto3
 
 def lambda_handler(event, context):
     s3 = boto3.client("s3")
-    bucket_name = "sagemakerdata-incidentec-test"
-    object_name = "train/incidents_model.csv"
-    s3.upload_file("incidents_model.csv", bucket_name, object_name)
-    print("Archivo subido a s3 exitosamente")
+    bucket = "sagemakerdata-incidentec-test"
+    s3.upload_file("incidents_train_tipo.csv", bucket, "train/urgency/incidents_train_urgencia.csv")
+    s3.upload_file("incidents_validation_tipo.csv", bucket, "validation/urgency/incidents_validation_urgencia.csv")
+    s3.upload_file("incidents_test_tipo.csv", bucket, "test/urgency/incidents_test_urgencia.csv")
+    s3.upload_file("incidents_train_urgencia.csv", bucket, "train/urgency/incidents_train_urgencia.csv")
+    s3.upload_file("incidents_validation_urgencia.csv", bucket,
+                   "validation/urgency/incidents_validation_urgencia.csv")
+    s3.upload_file("incidents_test_urgencia.csv", bucket, "test/urgency/incidents_test_urgencia.csv")
+    return {"statusCode": 200, "response": "Archivos subidos a s3 exitosamente"}
