@@ -1,7 +1,8 @@
 
 from pydantic import BaseModel
 
-class IncidentFeatures(BaseModel):
+class EndpointFeatures(BaseModel):
+    endpoint_name: str
     ubicacion: int
     ubicacion_especifica: int
     piso: int
