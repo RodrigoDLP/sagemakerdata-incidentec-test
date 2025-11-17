@@ -1,0 +1,28 @@
+import sagemaker
+from sagemaker import image_uris
+
+session = sagemaker.Session()
+
+role = "arn:aws:455247111280:role/LabRole"
+
+xgb_image = image_uris.retrieve("xgboost", region=session.boto_region_name, version="1.5-1")
+
+xgb = sagemaker.estimator.Estimator(
+    image_uri=xgb_image,
+    role=role,
+    instance_count=1,
+    instance_type="ml.m5.large",
+    output_path="s3://sagemakerdata-incidentec-test/output/kind",
+    sagemaker_session=session,
+)
+
+xgb.set_hyperparameters(
+    objective="multi:softmax",
+    num_class=5,
+    num_round=100
+)
+
+xgb.fit({
+    "train": "s3://sagemakerdata-incidentec-test/train/kind",
+    "validation": "s3://sagemakerdata-incidentec-test/validation/kind"
+})
