@@ -1,7 +1,9 @@
 import sagemaker
+import boto3
 from sagemaker import image_uris
 
-session = sagemaker.Session()
+boto_session = boto3.Session(region_name="us-east-1")
+session = sagemaker.Session(boto_session=boto_session)
 
 role = "arn:aws:455247111280:role/LabRole"
 
